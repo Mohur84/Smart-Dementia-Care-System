@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Legacy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-rose-50 text-center p-6">
+
+  <h1 class="text-3xl font-bold text-rose-900">Digital Legacy</h1>
+  <p class="text-gray-600 mt-2">Preserve stories, photos, and messages for family</p>
+
+  <!-- Input Section -->
+  <div class="mt-6 space-y-3">
+    <input id="title" type="text" placeholder="Title (e.g., My Childhood Memory)"
+      class="p-2 rounded border w-72"><br>
+
+    <textarea id="message" placeholder="Write your message or story..."
+      class="p-2 rounded border w-72 h-24"></textarea><br>
+
+    <input id="image" type="file" accept="image/*"
+      class="p-2 rounded border w-72"><br>
+
+    <button onclick="saveLegacy()" 
+      class="bg-rose-600 text-white px-6 py-2 rounded-lg">
+      Save Memory
+    </button>
+  </div>
+
+  <!-- Display Section -->
+  <div id="gallery" class="mt-8 grid gap-4 grid-cols-1 md:grid-cols-2 w-11/12 mx-auto">
+    <p>No memories saved yet</p>
+  </div>
+
+  <script>
+    function saveLegacy() {
+      const title = document.getElementById("title").value;
+      const message = document.getElementById("message").value;
+      const file = document.getElementById("image").files[0];
+
+      if (!title || !message) {
+        alert("Please fill title and message!");
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const imageData = e.target.result;
+
+        const legacy = {
+          title,
+          message,
+          image: imageData
+        };
+
+        const data = JSON.parse(localStorage.getItem("legacyData")) || [];
+        data.unshift(legacy);
+        localStorage.setItem("legacyData", JSON.stringify(data));
+
+        displayLegacy();
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        reader.onload({ target: { result: "" } });
+      }
+
+      document.getElementById("title").value = "";
+      document.getElementById("message").value = "";
+      document.getElementById("image").value = "";
+    }
+
+    function displayLegacy() {
+      const container = document.getElementById("gallery");
+      const data = JSON.parse(localStorage.getItem("legacyData")) || [];
+
+      if (data.length === 0) {
+        container.innerHTML = "<p>No memories saved yet</p>";
+        return;
+      }
+
+      container.innerHTML = "";
+
+      data.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "bg-white p-4 rounded-xl shadow-md text-left";
+
+        div.innerHTML = `
+          <h3 class="font-bold text-lg">${item.title}</h3>
+          <p class="mt-2">${item.message}</p>
+          ${item.image ? `<img src="${item.image}" class="mt-3 rounded-lg">` : ""}
+        `;
+
+        container.appendChild(div);
+      });
+    }
+
+    window.onload = displayLegacy;
+  </script>
+
+</body>
+</html>

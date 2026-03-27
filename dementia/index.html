@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Dementia Care System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+.card {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s ease;
+}
+.card:hover {
+    transform: translateY(-10px) scale(1.04);
+}
+.card::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+.card:hover::before {
+    opacity: 1;
+}
+.glass {
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.1);
+}
+</style>
+</head>
+
+<body class="bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200 min-h-screen p-6">
+
+<h1 class="text-5xl font-extrabold text-center text-gray-800 mb-12 drop-shadow-lg">
+✨ Smart Dementia Care System
+</h1>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+
+<a href="dementia_face_recognition.html" class="card glass bg-gradient-to-r from-blue-500 to-blue-700 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">👤 Face Recognition</h2>
+<p class="mt-2 opacity-80">Identify familiar faces</p>
+</a>
+
+<a href="emotion_detection_dementia.html" class="card glass bg-gradient-to-r from-purple-500 to-purple-700 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">😊 Emotion Detection</h2>
+<p class="mt-2 opacity-80">Understand emotions</p>
+</a>
+
+<a href="memory_journal_dementia.html" class="card glass bg-gradient-to-r from-green-500 to-green-700 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">📓 Memory Journal</h2>
+<p class="mt-2 opacity-80">Store memories</p>
+</a>
+
+<a href="sleep_monitoring_dementia.html" class="card glass bg-gradient-to-r from-indigo-500 to-indigo-700 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">😴 Sleep Monitoring</h2>
+<p class="mt-2 opacity-80">Track sleep</p>
+</a>
+
+<a href="behavioral_monitoring_dementia.html" class="card glass bg-gradient-to-r from-red-500 to-red-700 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">📹 Behavior Monitoring</h2>
+<p class="mt-2 opacity-80">Detect anomalies</p>
+</a>
+
+<a href="medical_reporting_dementia.html" class="card glass bg-gradient-to-r from-emerald-500 to-emerald-700 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">📄 Medical Reports</h2>
+<p class="mt-2 opacity-80">Generate reports</p>
+</a>
+
+<a href="voice_interaction_dementia.html" class="card glass bg-gradient-to-r from-teal-500 to-teal-700 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">🎤 Voice Assistant</h2>
+<p class="mt-2 opacity-80">Talk & interact</p>
+</a>
+
+<a href="personalization_engine_dementia.html" class="card glass bg-gradient-to-r from-pink-500 to-pink-700 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">⚙ Personalization</h2>
+<p class="mt-2 opacity-80">Adaptive system</p>
+</a>
+
+<a href="cognitive_exercise_hub_dementia.html" class="card glass bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">🧠 Cognitive Games</h2>
+<p class="mt-2 opacity-80">Brain exercises</p>
+</a>
+
+<a href="music_therapy_engine_dementia.html" class="card glass bg-gradient-to-r from-indigo-600 to-purple-700 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">🎵 Music Therapy</h2>
+<p class="mt-2 opacity-80">Mood-based music</p>
+</a>
+
+<a href="medication_vision_check_dementia.html" class="card glass bg-gradient-to-r from-green-600 to-lime-600 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">💊 Medication Check</h2>
+<p class="mt-2 opacity-80">Verify intake</p>
+</a>
+
+<a href="fall_prevention_alerts_dementia.html" class="card glass bg-gradient-to-r from-red-600 to-orange-600 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">🚶 Fall Prevention</h2>
+<p class="mt-2 opacity-80">Detect risk</p>
+</a>
+
+<a href="safe_zone_geofencing_dementia.html" class="card glass bg-gradient-to-r from-yellow-600 to-orange-500 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">📍 Safe Zone</h2>
+<p class="mt-2 opacity-80">Location alerts</p>
+</a>
+
+<a href="life_story_archive_dementia.html" class="card glass bg-gradient-to-r from-purple-600 to-pink-700 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">🎤 Life Story</h2>
+<p class="mt-2 opacity-80">Voice memories</p>
+</a>
+
+<a href="caregiver_wellbeing_tips_dementia.html" class="card glass bg-gradient-to-r from-teal-600 to-green-700 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">💡 Caregiver Tips</h2>
+<p class="mt-2 opacity-80">Weekly support</p>
+</a>
+
+<a href="multilanguage_support_dementia.html" class="card glass bg-gradient-to-r from-blue-600 to-cyan-700 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">🌐 Multi-language</h2>
+<p class="mt-2 opacity-80">Language support</p>
+</a>
+
+<a href="emergency_sos_mode_dementia.html" class="card glass bg-gradient-to-r from-red-700 to-pink-700 text-white p-6 rounded-2xl shadow-xl animate-pulse">
+<h2 class="text-2xl font-bold">🚨 Emergency SOS</h2>
+<p class="mt-2 opacity-80">Instant help</p>
+</a>
+
+<a href="digital_legacy_dementia.html" class="card glass bg-gradient-to-r from-rose-500 to-rose-700 text-white p-6 rounded-2xl shadow-xl">
+<h2 class="text-2xl font-bold">📚 Digital Legacy</h2>
+<p class="mt-2 opacity-80">Store memories</p>
+</a>
+
+</div>
+
+</body>
+</html>

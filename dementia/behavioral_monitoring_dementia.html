@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Behavioral Monitoring - Dementia Care</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f7fb;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        video {
+            border: 3px solid #e74c3c;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c0392b;
+        }
+
+        #status {
+            margin-top: 20px;
+            font-size: 20px;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Behavioral Monitoring System</h1>
+    <p>Continuous anomaly detection using camera & microphone</p>
+
+    <video id="video" width="320" height="240" autoplay></video>
+    <br>
+
+    <button onclick="startMonitoring()">Start Monitoring</button>
+
+    <div id="status">System Idle</div>
+
+    <script>
+        const video = document.getElementById('video');
+        let monitoring = false;
+
+        // Access camera
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                alert("Camera/Microphone access denied!");
+                console.error(err);
+            });
+
+        function startMonitoring() {
+            monitoring = true;
+            document.getElementById("status").innerHTML = "Monitoring started...";
+
+            detectAnomaly();
+        }
+
+        function detectAnomaly() {
+            if (!monitoring) return;
+
+            // Simulated anomaly detection
+            const events = [
+                { type: "Normal", message: "Everything is normal 😊" },
+                { type: "Fall Detected", message: "⚠ Possible fall detected!" },
+                { type: "Loud Noise", message: "⚠ Sudden loud sound detected!" },
+                { type: "Wandering", message: "⚠ Unusual movement detected!" }
+            ];
+
+            const event = events[Math.floor(Math.random() * events.length)];
+
+            document.getElementById("status").innerHTML =
+                `<strong>${event.type}</strong><br>${event.message}`;
+
+            // Repeat every 5 seconds
+            setTimeout(detectAnomaly, 5000);
+        }
+    </script>
+
+</body>
+</html>
