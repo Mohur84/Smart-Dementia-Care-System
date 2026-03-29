@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Safe Zone Geofencing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-yellow-50 text-center p-6">
+
+  <h1 class="text-3xl font-bold text-yellow-900">Safe Zone Geofencing</h1>
+  <p class="text-gray-600 mt-2">Alerts when patient exits defined indoor safe zones</p>
+
+  <!-- Zone Setup -->
+  <div class="mt-6">
+    <label class="block font-semibold">Define Safe Zone (Room Name):</label>
+    <input id="zoneInput" type="text" placeholder="e.g., Bedroom"
+      class="mt-2 p-2 rounded border w-64">
+    <button onclick="addZone()" class="ml-2 bg-yellow-600 text-white px-4 py-2 rounded-lg">
+      Add Zone
+    </button>
+  </div>
+
+  <!-- Zone List -->
+  <div id="zones" class="mt-6 bg-white p-4 rounded-xl shadow-md w-11/12 md:w-2/3 mx-auto">
+    <p>No zones defined</p>
+  </div>
+
+  <!-- Controls -->
+  <div class="mt-6 space-x-4">
+    <button onclick="startTracking()" class="bg-green-600 text-white px-4 py-2 rounded-lg">
+      Start Tracking
+    </button>
+    <button onclick="stopTracking()" class="bg-gray-600 text-white px-4 py-2 rounded-lg">
+      Stop
+    </button>
+  </div>
+
+  <!-- Status -->
+  <div id="status" class="mt-8 bg-white p-6 rounded-xl shadow-md w-11/12 md:w-2/3 mx-auto">
+    Tracking not started
+  </div>
+
+  <script>
+    let safeZones = [];
+    let tracking = false;
+
+    function addZone() {
+      const zone = document.getElementById("zoneInput").value;
+      if (!zone) return alert("Enter a zone name");
+
+      safeZones.push(zone);
+      document.getElementById("zoneInput").value = "";
+      displayZones();
+    }
+
+    function displayZones() {
+      const container = document.getElementById("zones");
+      if (safeZones.length === 0) {
+        container.innerHTML = "<p>No zones defined</p>";
+        return;
+      }
+
+      let html = "<h2 class='font-semibold'>Safe Zones:</h2><ul class='mt-2'>";
+      safeZones.forEach(z => {
+        html += `<li class="mt-1">${z}</li>`;
+      });
+      html += "</ul>";
+
+      container.innerHTML = html;
+    }
+
+    function startTracking() {
+      if (safeZones.length === 0) {
+        alert("Please add at least one safe zone!");
+        return;
+      }
+
+      tracking = true;
+      simulateMovement();
+    }
+
+    function stopTracking() {
+      tracking = false;
+      document.getElementById("status").innerHTML = "Tracking stopped";
+    }
+
+    function simulateMovement() {
+      if (!tracking) return;
+
+      const allZones = [...safeZones, "Kitchen", "Hallway", "Outside"];
+      const current = allZones[Math.floor(Math.random() * allZones.length)];
+
+      if (safeZones.includes(current)) {
+        document.getElementById("status").innerHTML =
+          `<h2 class="text-green-600 font-semibold">Inside Safe Zone</h2>
+           <p class="mt-2">Current Location: ${current}</p>`;
+      } else {
+        document.getElementById("status").innerHTML =
+          `<h2 class="text-red-600 font-semibold">Alert</h2>
+           <p class="mt-2">Patient moved to: ${current}</p>
+           <p class="mt-2">Outside safe zone!</p>`;
+      }
+
+      setTimeout(simulateMovement, 4000);
+    }
+  </script>
+
+</body>
+</html>

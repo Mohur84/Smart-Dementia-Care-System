@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fall Prevention Alerts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-red-50 text-center p-6">
+
+    <h1 class="text-3xl font-bold text-red-900">Fall Prevention Alerts</h1>
+    <p class="text-gray-600 mt-2">Gait analysis & hazard detection for pre-fall prevention</p>
+
+    <!-- Camera -->
+    <div class="mt-6 flex justify-center">
+        <video id="video" width="320" height="240" autoplay class="rounded-xl border-4 border-red-400"></video>
+    </div>
+
+    <!-- Controls -->
+    <div class="mt-6 space-x-4">
+        <button onclick="startMonitoring()" class="bg-red-600 text-white px-4 py-2 rounded-lg">
+            Start Monitoring
+        </button>
+        <button onclick="stopMonitoring()" class="bg-gray-600 text-white px-4 py-2 rounded-lg">
+            Stop
+        </button>
+    </div>
+
+    <!-- Status -->
+    <div id="status" class="mt-8 bg-white p-6 rounded-xl shadow-md w-11/12 md:w-2/3 mx-auto">
+        System Idle
+    </div>
+
+    <script>
+        const video = document.getElementById("video");
+        let monitoring = false;
+
+        function startMonitoring() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    video.srcObject = stream;
+                    monitoring = true;
+                    detectRisk();
+                })
+                .catch(err => {
+                    alert("Camera access denied!");
+                    console.error(err);
+                });
+        }
+
+        function stopMonitoring() {
+            monitoring = false;
+            document.getElementById("status").innerHTML = "Monitoring Stopped";
+        }
+
+        function detectRisk() {
+            if (!monitoring) return;
+
+            // Simulated AI detection
+            const alerts = [
+                { type: "Safe", message: "Walking pattern normal." },
+                { type: "Unstable Gait", message: "Irregular walking detected. Please move carefully." },
+                { type: "Obstacle Detected", message: "Object detected nearby. Clear your path." },
+                { type: "High Fall Risk", message: "High risk of fall. Please sit or seek help." }
+            ];
+
+            const alert = alerts[Math.floor(Math.random() * alerts.length)];
+
+            document.getElementById("status").innerHTML =
+                `<h2 class="text-xl font-semibold">${alert.type}</h2>
+                 <p class="mt-2">${alert.message}</p>`;
+
+            setTimeout(detectRisk, 4000);
+        }
+    </script>
+
+</body>
+</html>

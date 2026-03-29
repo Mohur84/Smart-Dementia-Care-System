@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Caregiver Wellbeing Tips</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-teal-50 text-center p-6">
+
+  <h1 class="text-3xl font-bold text-teal-900">Caregiver Wellbeing Tips</h1>
+  <p class="text-gray-600 mt-2">Weekly suggestions to prevent caregiver burnout</p>
+
+  <!-- Button -->
+  <div class="mt-6">
+    <button onclick="generateTips()" class="bg-teal-600 text-white px-6 py-2 rounded-lg">
+      Get Weekly Tips
+    </button>
+  </div>
+
+  <!-- Tips Display -->
+  <div id="tipsContainer" class="mt-8 bg-white p-6 rounded-xl shadow-md w-11/12 md:w-2/3 mx-auto">
+    <p>No tips generated yet</p>
+  </div>
+
+  <script>
+    const tipsList = [
+      "Take short breaks during the day to relax.",
+      "Stay connected with friends and family.",
+      "Practice deep breathing or meditation.",
+      "Ask for help when needed.",
+      "Maintain a healthy diet and stay hydrated.",
+      "Get enough sleep and rest.",
+      "Join a caregiver support group.",
+      "Engage in hobbies you enjoy.",
+      "Set realistic expectations for yourself.",
+      "Talk to a professional if feeling overwhelmed."
+    ];
+
+    function generateTips() {
+      let selectedTips = [];
+
+      // Pick 3 random tips
+      while (selectedTips.length < 3) {
+        const tip = tipsList[Math.floor(Math.random() * tipsList.length)];
+        if (!selectedTips.includes(tip)) {
+          selectedTips.push(tip);
+        }
+      }
+
+      let html = "<h2 class='text-xl font-semibold'>This Week's Tips</h2><ul class='mt-4 text-left'>";
+      selectedTips.forEach(t => {
+        html += `<li class="mt-2">${t}</li>`;
+      });
+      html += "</ul>";
+
+      document.getElementById("tipsContainer").innerHTML = html;
+    }
+  </script>
+
+</body>
+</html>

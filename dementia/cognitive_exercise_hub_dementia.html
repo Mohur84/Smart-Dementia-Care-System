@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cognitive Exercise Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-blue-50 text-center p-6">
+
+    <h1 class="text-3xl font-bold text-blue-900">Cognitive Exercise Hub</h1>
+    <p class="text-gray-600 mt-2">Daily puzzles, word games & memory activities</p>
+
+    <div class="mt-6 space-x-4">
+        <button onclick="showGame('memory')" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Memory Recall</button>
+        <button onclick="showGame('word')" class="bg-green-500 text-white px-4 py-2 rounded-lg">Word Game</button>
+        <button onclick="showGame('puzzle')" class="bg-purple-500 text-white px-4 py-2 rounded-lg">Puzzle</button>
+    </div>
+
+    <div id="gameArea" class="mt-8 bg-white p-6 rounded-xl shadow-md w-11/12 md:w-2/3 mx-auto">
+        Select an activity to begin.
+    </div>
+
+    <script>
+        function showGame(type) {
+            let content = "";
+
+            if (type === "memory") {
+                const items = ["Apple", "Car", "Dog", "House"];
+                content = `
+                    <h2 class="text-xl font-semibold">Memory Recall</h2>
+                    <p class="mt-2">Remember these items:</p>
+                    <p class="font-bold text-lg mt-2">${items.join(", ")}</p>
+                    <button onclick="recallTest()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Start Recall</button>
+                `;
+            }
+
+            if (type === "word") {
+                const words = ["_pple", "C_t", "D_g"];
+                content = `
+                    <h2 class="text-xl font-semibold">Word Game</h2>
+                    <p class="mt-2">Fill in the missing letters:</p>
+                    <p class="font-bold text-lg mt-2">${words.join(", ")}</p>
+                `;
+            }
+
+            if (type === "puzzle") {
+                const num1 = Math.floor(Math.random() * 10);
+                const num2 = Math.floor(Math.random() * 10);
+                content = `
+                    <h2 class="text-xl font-semibold">Simple Puzzle</h2>
+                    <p class="mt-2">Solve</p>
+                    <p class="font-bold text-lg mt-2">${num1} + ${num2} = ?</p>
+                `;
+            }
+
+            document.getElementById("gameArea").innerHTML = content;
+        }
+
+        function recallTest() {
+            const answer = prompt("Enter the items you remember:");
+            alert("Great effort! Keeping your brain active is important 😊");
+        }
+    </script>
+
+</body>
+</html>

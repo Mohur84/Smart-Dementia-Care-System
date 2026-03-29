@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Emergency SOS Mode</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-red-50 text-center p-6">
+
+  <h1 class="text-3xl font-bold text-red-900">Emergency SOS Mode</h1>
+  <p class="text-gray-600 mt-2">Panic button via voice or gesture</p>
+
+  <!-- SOS Button -->
+  <div class="mt-8">
+    <button onclick="triggerSOS()" 
+      class="bg-red-600 text-white text-xl px-8 py-4 rounded-full shadow-lg animate-pulse">
+      SOS
+    </button>
+  </div>
+
+  <!-- Voice Button -->
+  <div class="mt-6">
+    <button onclick="startVoiceSOS()" 
+      class="bg-blue-600 text-white px-6 py-2 rounded-lg">
+      Voice SOS
+    </button>
+  </div>
+
+  <!-- Status -->
+  <div id="status" class="mt-8 bg-white p-6 rounded-xl shadow-md w-11/12 md:w-2/3 mx-auto">
+    System Ready
+  </div>
+
+  <script>
+    function triggerSOS() {
+      document.getElementById("status").innerHTML =
+        "<h2 class='text-red-600 font-bold text-xl'>EMERGENCY ALERT SENT</h2>         <p class='mt-2'>Caregiver has been notified.</p>";
+    }
+
+    function startVoiceSOS() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      if (!SpeechRecognition) {
+        alert("Speech recognition not supported!");
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.start();
+
+      recognition.onresult = function(event) {
+        const speech = event.results[0][0].transcript.toLowerCase();
+
+        if (speech.includes("help") || speech.includes("sos")) {
+          triggerSOS();
+        } else {
+          document.getElementById("status").innerHTML =
+            "<p>Voice detected but no emergency keyword.</p>";
+        }
+      };
+    }
+  </script>
+
+</body>
+</html>

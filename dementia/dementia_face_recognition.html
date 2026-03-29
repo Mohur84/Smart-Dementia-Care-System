@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dementia Face Recognition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        video {
+            border: 3px solid #3498db;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #2c3e50;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+    <style>
+    .teal-accent { color: #14F2C3; }
+    .bg-card { background: #0F1A22; }
+    .bg-panel { background: #0B141B; }
+    .chip { height: 6px; border-radius: 9999px; }
+    </style>
+</head>
+
+<body class="min-h-screen bg-[#0A1218] text-gray-200">
+
+    <header class="bg-panel border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <h1 class="text-2xl md:text-3xl tracking-widest font-extrabold">
+                <span class="teal-accent">PROTOTYPE DASHBOARD</span> — CAREGIVER INTERFACE
+            </h1>
+            <div class="text-sm opacity-70">NeuroBin</div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-12 gap-6">
+        <aside class="col-span-12 md:col-span-3 lg:col-span-2 bg-panel rounded-xl p-4 text-left">
+            <div class="text-xl font-bold teal-accent mb-4">NeuroBin</div>
+            <nav class="space-y-1">
+                <a href="index.html" class="block px-3 py-2 rounded-lg hover:bg-card">Dashboard</a>
+                <a href="#" class="block px-3 py-2 rounded-lg bg-card">Face Log</a>
+                <a href="emotion_detection_dementia.html" class="block px-3 py-2 rounded-lg hover:bg-card">Emotions</a>
+                <a href="medication_vision_check_dementia.html" class="block px-3 py-2 rounded-lg hover:bg-card">Medications</a>
+                <a href="safe_zone_geofencing_dementia.html" class="block px-3 py-2 rounded-lg hover:bg-card">Location</a>
+            </nav>
+        </aside>
+
+        <main class="col-span-12 md:col-span-9 lg:col-span-10">
+            <section class="bg-panel rounded-xl p-6 text-left">
+                <h2 class="text-xl font-semibold">Face Recognition</h2>
+                <p class="text-sm opacity-80 mt-1">Helping dementia patients recognize familiar faces</p>
+                <div class="mt-5 flex flex-col items-start">
+                    <video id="video" width="320" height="240" autoplay class="rounded-lg border border-gray-700"></video>
+                    <button onclick="recognizeFace()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg">Recognize Face</button>
+                </div>
+                <div id="result" class="mt-6 bg-card p-4 rounded-lg inline-block">No face detected</div>
+            </section>
+        </main>
+    </div>
+
+    
+
+    <script>
+        const video = document.getElementById('video');
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                alert("Camera access denied!");
+                console.error(err);
+            });
+
+        const knownFaces = [
+            { name: "John", relation: "Your Son" },
+            { name: "Emily", relation: "Your Daughter" },
+            { name: "Dr. Smith", relation: "Your Doctor" }
+        ];
+
+        function recognizeFace() {
+            const person = knownFaces[Math.floor(Math.random() * knownFaces.length)];
+
+            document.getElementById("result").innerHTML =
+                `<strong>${person.name}</strong><br>${person.relation}`;
+        }
+    </script>
+
+</body>
+</html>

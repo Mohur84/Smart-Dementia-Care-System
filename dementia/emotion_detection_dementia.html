@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emotion Detection - Dementia Care</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        video {
+            border: 3px solid #8e44ad;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        #emotionResult {
+            margin-top: 20px;
+            font-size: 26px;
+            color: #2c3e50;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            background-color: #8e44ad;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #6c3483;
+        }
+    </style>
+    <style>
+    .teal-accent { color: #14F2C3; }
+    .bg-card { background: #0F1A22; }
+    .bg-panel { background: #0B141B; }
+    .chip { height: 6px; border-radius: 9999px; }
+    </style>
+</head>
+
+<body class="min-h-screen bg-[#0A1218] text-gray-200">
+
+    <header class="bg-panel border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <h1 class="text-2xl md:text-3xl tracking-widest font-extrabold">
+                <span class="teal-accent">PROTOTYPE DASHBOARD</span> — CAREGIVER INTERFACE
+            </h1>
+            <div class="text-sm opacity-70">NeuroBin</div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-12 gap-6">
+        <aside class="col-span-12 md:col-span-3 lg:col-span-2 bg-panel rounded-xl p-4 text-left">
+            <div class="text-xl font-bold teal-accent mb-4">NeuroBin</div>
+            <nav class="space-y-1">
+                <a href="index.html" class="block px-3 py-2 rounded-lg hover:bg-card">Dashboard</a>
+                <a href="#" class="block px-3 py-2 rounded-lg bg-card">Emotions</a>
+                <a href="dementia_face_recognition.html" class="block px-3 py-2 rounded-lg hover:bg-card">Face Log</a>
+                <a href="medication_vision_check_dementia.html" class="block px-3 py-2 rounded-lg hover:bg-card">Medications</a>
+                <a href="safe_zone_geofencing_dementia.html" class="block px-3 py-2 rounded-lg hover:bg-card">Location</a>
+            </nav>
+        </aside>
+
+        <main class="col-span-12 md:col-span-9 lg:col-span-10">
+            <section class="bg-panel rounded-xl p-6 text-left">
+                <h2 class="text-xl font-semibold">Emotion Detection</h2>
+                <p class="text-sm opacity-80 mt-1">Helping dementia patients understand emotions</p>
+                <div class="mt-5 flex flex-col items-start">
+                    <video id="video" width="320" height="240" autoplay class="rounded-lg border border-gray-700"></video>
+                    <button onclick="detectEmotion()" class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-lg">Detect Emotion</button>
+                </div>
+                <div id="emotionResult" class="mt-6 bg-card p-4 rounded-lg inline-block">No emotion detected</div>
+            </section>
+        </main>
+    </div>
+
+    
+
+    <script>
+        const video = document.getElementById('video');
+
+        // Access webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                alert("Camera access denied!");
+                console.error(err);
+            });
+
+        // Simulated emotions database
+        const emotions = [
+            { emotion: "Happy", message: "You seem happy." },
+            { emotion: "Sad", message: "You seem a bit sad. It's okay." },
+            { emotion: "Angry", message: "You seem upset. Try to relax." },
+            { emotion: "Surprised", message: "You look surprised." },
+            { emotion: "Neutral", message: "You look calm." }
+        ];
+
+        function detectEmotion() {
+            // Simulate detection
+            const detected = emotions[Math.floor(Math.random() * emotions.length)];
+
+            document.getElementById("emotionResult").innerHTML =
+                `<strong>${detected.emotion}</strong><br>${detected.message}`;
+        }
+    </script>
+
+</body>
+</html>

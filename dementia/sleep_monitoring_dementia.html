@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sleep Monitoring - Dementia Care</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 2px solid #3498db;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Sleep Monitoring</h1>
+    <p>Track your sleep schedule for better health</p>
+
+    <div>
+        <label>Sleep Time:</label><br>
+        <input type="time" id="sleepTime"><br>
+
+        <label>Wake Time:</label><br>
+        <input type="time" id="wakeTime"><br>
+
+        <button onclick="calculateSleep()">Check Sleep</button>
+    </div>
+
+    <div id="result" class="result">No data yet</div>
+
+    <script>
+        function calculateSleep() {
+            const sleep = document.getElementById("sleepTime").value;
+            const wake = document.getElementById("wakeTime").value;
+
+            if (!sleep || !wake) {
+                alert("Please enter both times!");
+                return;
+            }
+
+            let sleepHour = parseInt(sleep.split(":")[0]);
+            let wakeHour = parseInt(wake.split(":")[0]);
+
+            let duration;
+            if (wakeHour >= sleepHour) {
+                duration = wakeHour - sleepHour;
+            } else {
+                duration = (24 - sleepHour) + wakeHour;
+            }
+
+            let message = "";
+            if (duration < 6) {
+                message = "You need more sleep";
+            } else if (duration <= 8) {
+                message = "Good sleep";
+            } else {
+                message = "You slept well";
+            }
+
+            document.getElementById("result").innerHTML =
+                `Sleep Duration: <strong>${duration} hours</strong><br>${message}`;
+        }
+    </script>
+
+</body>
+</html>

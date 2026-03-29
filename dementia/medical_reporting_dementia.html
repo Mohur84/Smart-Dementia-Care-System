@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Medical Reporting - Dementia Care</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        input, textarea, select {
+            width: 90%;
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 2px solid #27ae60;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            background-color: #27ae60;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1e8449;
+        }
+
+        .report {
+            margin-top: 20px;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: left;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <style>
+    .teal-accent { color: #14F2C3; }
+    .bg-card { background: #0F1A22; }
+    .bg-panel { background: #0B141B; }
+    .chip { height: 6px; border-radius: 9999px; }
+    </style>
+</head>
+
+<body class="min-h-screen bg-[#0A1218] text-gray-200">
+
+    <header class="bg-panel border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <h1 class="text-2xl md:text-3xl tracking-widest font-extrabold">
+                <span class="teal-accent">PROTOTYPE DASHBOARD</span> — CAREGIVER INTERFACE
+            </h1>
+            <div class="text-sm opacity-70">NeuroBin</div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-12 gap-6">
+        <aside class="col-span-12 md:col-span-3 lg:col-span-2 bg-panel rounded-xl p-4 text-left">
+            <div class="text-xl font-bold teal-accent mb-4">NeuroBin</div>
+            <nav class="space-y-1">
+                <a href="index.html" class="block px-3 py-2 rounded-lg hover:bg-card">Dashboard</a>
+                <a href="#" class="block px-3 py-2 rounded-lg bg-card">Medical Reports</a>
+                <a href="dementia_face_recognition.html" class="block px-3 py-2 rounded-lg hover:bg-card">Face Log</a>
+                <a href="emotion_detection_dementia.html" class="block px-3 py-2 rounded-lg hover:bg-card">Emotions</a>
+                <a href="medication_vision_check_dementia.html" class="block px-3 py-2 rounded-lg hover:bg-card">Medications</a>
+            </nav>
+        </aside>
+
+        <main class="col-span-12 md:col-span-9 lg:col-span-10">
+            <section class="bg-panel rounded-xl p-6 text-left">
+                <h2 class="text-xl font-semibold">Medical Reporting</h2>
+                <p class="text-sm opacity-80 mt-1">Generate weekly and monthly reports for caregivers and physicians</p>
+
+                <div class="mt-5">
+                    <input type="text" id="patientName" placeholder="Patient Name" class="bg-card text-gray-200">
+
+                    <select id="reportType" class="bg-card text-gray-200">
+                        <option value="Weekly">Weekly Caregiver Report</option>
+                        <option value="Monthly">Monthly Clinical Report</option>
+                    </select>
+
+                    <textarea id="notes" placeholder="Enter observations (sleep, behavior, mood, etc.)" class="bg-card text-gray-200"></textarea>
+
+                    <button onclick="generateReport()" class="bg-emerald-600 text-white rounded-lg">Generate Report</button>
+                </div>
+
+                <div id="reportOutput" class="report bg-card text-gray-200 border border-gray-700">No report generated</div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function generateReport() {
+            const name = document.getElementById("patientName").value;
+            const type = document.getElementById("reportType").value;
+            const notes = document.getElementById("notes").value;
+
+            if (!name || !notes) {
+                alert("Please fill all fields!");
+                return;
+            }
+
+            const date = new Date().toLocaleDateString();
+
+            const report = `
+                <h3>${type}</h3>
+                <p><strong>Patient:</strong> ${name}</p>
+                <p><strong>Date:</strong> ${date}</p>
+                <p><strong>Observations:</strong></p>
+                <p>${notes}</p>
+            `;
+
+            document.getElementById("reportOutput").innerHTML = report;
+        }
+    </script>
+
+</body>
+</html>

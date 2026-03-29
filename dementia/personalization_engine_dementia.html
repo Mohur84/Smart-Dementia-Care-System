@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personalization Engine - Dementia Care</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        input, select {
+            width: 90%;
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 2px solid #2980b9;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            background-color: #2980b9;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1f618d;
+        }
+
+        .profile {
+            margin-top: 20px;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: left;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Personalization Engine</h1>
+    <p>Adapt system behavior based on patient profile</p>
+
+    <input type="text" id="name" placeholder="Patient Name">
+    <input type="number" id="age" placeholder="Age">
+
+    <select id="level">
+        <option value="Mild">Mild Dementia</option>
+        <option value="Moderate">Moderate Dementia</option>
+        <option value="Severe">Severe Dementia</option>
+    </select>
+
+    <select id="language">
+        <option value="English">English</option>
+        <option value="Hindi">Hindi</option>
+    </select>
+
+    <button onclick="saveProfile()">Save Profile</button>
+
+    <div id="output" class="profile">No profile saved</div>
+
+    <script>
+        function saveProfile() {
+            const profile = {
+                name: document.getElementById("name").value,
+                age: document.getElementById("age").value,
+                level: document.getElementById("level").value,
+                language: document.getElementById("language").value
+            };
+
+            if (!profile.name || !profile.age) {
+                alert("Please fill all fields!");
+                return;
+            }
+
+            localStorage.setItem("patientProfile", JSON.stringify(profile));
+            displayProfile();
+        }
+
+        function displayProfile() {
+            const profile = JSON.parse(localStorage.getItem("patientProfile"));
+
+            if (!profile) return;
+
+            let message = "";
+
+            if (profile.level === "Mild") {
+                message = "Provide gentle reminders.";
+            } else if (profile.level === "Moderate") {
+                message = "Use simple instructions and frequent guidance.";
+            } else {
+                message = "Provide step-by-step assistance and reassurance.";
+            }
+
+            document.getElementById("output").innerHTML = `
+                <h3>Patient Profile</h3>
+                <p><strong>Name:</strong> ${profile.name}</p>
+                <p><strong>Age:</strong> ${profile.age}</p>
+                <p><strong>Dementia Level:</strong> ${profile.level}</p>
+                <p><strong>Preferred Language:</strong> ${profile.language}</p>
+                <p><strong>System Behavior:</strong> ${message}</p>
+            `;
+        }
+
+        // Load profile on start
+        window.onload = displayProfile;
+    </script>
+
+</body>
+</html>
